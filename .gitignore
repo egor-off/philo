@@ -5,6 +5,9 @@
 philo
 philo_bonus
 
+# Check files
+out
+
 # Object files
 *.o
 *.ko
