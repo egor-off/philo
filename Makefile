@@ -3,7 +3,8 @@ NAME	:= philo
 SRCDIR	:= src
 OBJDIR	:= obj
 
-SRC 	:=	main.c write_info.c utils.c
+SRC 	:=	main.c init.c utils.c \
+			threads.c talk.c
 
 SRC 	:= $(addprefix $(SRCDIR)/,$(SRC))
 OBJ 	:= $(SRC:$(SRCDIR)/%c=$(OBJDIR)/%o)
