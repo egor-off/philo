@@ -1,6 +1,10 @@
 # Prerequisites
 *.d
 
+# Exec files
+philo
+philo_bonus
+
 # Object files
 *.o
 *.ko
