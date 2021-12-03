@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:53:14 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/02 18:34:41 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/03 21:14:41 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ static void	start_philo(int ac, char **av)
 {
 	t_bos	*boss;
 
-	boss = malloc(sizeof(t_bos *));
+	boss = malloc(sizeof(t_bos));
 	if (!boss)
 		print_er("cannot allocate memory for boss");
 	write_info(boss, ac, av);
 	mall_and_init(boss);
+	printf("before start thread\n");
 	start_threads(boss);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:11:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/02 22:05:42 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/03 21:02:00 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,14 @@ struct s_philo
 	pthread_t		t;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
-	pthread_mutex_t	**death;
-	pthread_mutex_t	**talk;
-	int				*time_death;
-	unsigned int	*time_eat;
-	unsigned int	*time_sleep;
-	unsigned int	*count_eat;
 	t_time			*last_eat;
-	t_time			**start;
 	t_time			*now;
+	t_bos			*boss;
 };
 
 struct s_boss
 {
-	pthread_t		boss;
-	t_ph			**ph;
+	t_ph			*ph;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*death;
 	pthread_mutex_t	*talk;
@@ -60,6 +53,7 @@ struct s_boss
 //utils
 long	ft_atol(const char *str);
 void	print_er(const char *s);
+void	check_malloc(void *check);
 
 //main
 void	write_info(t_bos *boss, int ac, char **av);
