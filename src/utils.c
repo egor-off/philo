@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:38:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/01 16:22:51 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/02 13:55:18 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,16 @@ void	print_er(const char *s)
 	write(2, s, len);
 	write(2, "\n", 1);
 	exit(1);
+}
+
+long	ft_atol(const char *str)
+{
+	unsigned long	res;
+
+	res = 0;
+	if (*str < 48 || *str > 57)
+		print_er("invalid number");
+	while (*str >= 48 && *str <= 57)
+		res = res * 10 + (*str++ - 48);
+	return (res);
 }

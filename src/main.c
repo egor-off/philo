@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:53:14 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/01 20:16:14 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/02 18:34:41 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	start_philo(int ac, char **av)
 	if (!boss)
 		print_er("cannot allocate memory for boss");
 	write_info(boss, ac, av);
-	mall_struct(boss);
+	mall_and_init(boss);
 	start_threads(boss);
 }
 

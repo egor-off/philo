@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:11:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/01 20:06:47 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/02 22:05:42 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,11 @@ struct s_philo
 	t_time			*now;
 };
 
-struct s_table
-{
-	pthread_mutex_t	fork;
-};
-
 struct s_boss
 {
 	pthread_t		boss;
-	t_ph			*ph;
-	t_tab			*tab;
+	t_ph			**ph;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	*death;
 	pthread_mutex_t	*talk;
 	size_t			num;
@@ -62,9 +57,13 @@ struct s_boss
 	t_time			*start;
 };
 
+//utils
+long	ft_atol(const char *str);
 void	print_er(const char *s);
+
+//main
 void	write_info(t_bos *boss, int ac, char **av);
-void	mall_struct(t_bos	*boss);
+void	mall_and_init(t_bos *boss);
 void	start_threads(t_bos *boss);
 
 //talk
