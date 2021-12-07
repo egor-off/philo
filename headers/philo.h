@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:11:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/03 21:02:00 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/05 23:17:31 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ struct s_philo
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
 	t_time			*last_eat;
-	t_time			*now;
 	t_bos			*boss;
 };
 
@@ -53,7 +52,7 @@ struct s_boss
 //utils
 long	ft_atol(const char *str);
 void	print_er(const char *s);
-void	check_malloc(void *check);
+short	check_time(t_ph *p, t_time *now);
 
 //main
 void	write_info(t_bos *boss, int ac, char **av);

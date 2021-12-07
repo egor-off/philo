@@ -6,7 +6,7 @@ philo
 philo_bonus
 
 # Check files
-out
+out*
 
 # Object files
 *.o

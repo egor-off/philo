@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 15:34:25 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/03 21:31:35 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/07 14:28:26 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,19 @@ void	sleep_and_think(t_ph *p)
 
 void	*check_death(void *ph)
 {
-	t_ph	*p;
+	t_ph	p;
 	t_time	now;
+	int		death;
 
-	p = (t_ph *)ph;
+	p = *(t_ph *) ph;
+	death = p.boss->time_death;
+	while (!p.last_eat->tv_sec)
+		;
 	gettimeofday(&now, NULL);
-	if (p->last_eat->tv_usec == 0)
-		gettimeofday(p->last_eat, NULL);
-	while (now.tv_usec - p->last_eat->tv_usec < p->boss->time_death)
+	while (((now.tv_sec - p.last_eat->tv_sec) * 1000000)
+		+ (now.tv_usec - p.last_eat->tv_usec) < death)
 		gettimeofday(&now, NULL);
-	talk_death(p);
+	talk_death(&p);
 	return (NULL);
 }
 
@@ -48,6 +51,7 @@ void	*phil(void *s)
 
 	flag = 1;
 	p = (t_ph *) s;
+	printf("hohoho\n");
 	while (1)
 	{
 		if (flag)

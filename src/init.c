@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:43:13 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/03 22:53:57 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/07 14:14:38 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ void	init_struct(t_bos *boss, pthread_mutex_t **forks)
 		boss->ph[i].last_eat = malloc(sizeof(t_time));
 		if (!boss->ph[i].last_eat)
 			print_er("cannot allocate memory for timelaps");
-		boss->ph[i].now = malloc(sizeof(t_time));
-		if (!boss->ph[i].now)
-			print_er("cannot allocate memory for now timelaps");
 		i++;
 	}
 }
@@ -52,13 +49,13 @@ void	init_mutex(t_bos *boss)
 	size_t	i;
 
 	i = 0;
-	if (pthread_mutex_init(boss->death, NULL) < 0)
+	if (pthread_mutex_init(boss->death, NULL) > 0)
 		print_er("cannot init death mutex");
-	if (pthread_mutex_init(boss->talk, NULL) < 0)
+	if (pthread_mutex_init(boss->talk, NULL) > 0)
 		print_er("cannot init talk mutex");
 	while (i < boss->num)
 	{
-		if (pthread_mutex_init(&boss->forks[i], NULL) < 0)
+		if (pthread_mutex_init(&boss->forks[i], NULL) > 0)
 			print_er("cannot init mutexes");
 		i++;
 	}
