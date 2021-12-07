@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:11:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/05 23:17:31 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/08 02:48:10 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ struct s_philo
 {
 	size_t			num;
 	pthread_t		t;
+	pthread_t		c;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
-	t_time			*last_eat;
+	long			last_eat;
 	t_bos			*boss;
 };
 
@@ -51,12 +52,13 @@ struct s_boss
 
 //utils
 long	ft_atol(const char *str);
-void	print_er(const char *s);
+int		print_er(const char *s);
 short	check_time(t_ph *p, t_time *now);
+long	get_time(t_ph *p);
+long	get_time_eat(t_ph *p);
 
 //main
-void	write_info(t_bos *boss, int ac, char **av);
-void	mall_and_init(t_bos *boss);
+int		mall_and_init(t_bos *boss);
 void	start_threads(t_bos *boss);
 
 //talk

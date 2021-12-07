@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:38:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/05 23:48:44 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/08 02:07:02 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_strlen(const char *s)
 	return (size);
 }
 
-void	print_er(const char *s)
+int	print_er(const char *s)
 {
 	int	len;
 
@@ -30,25 +30,31 @@ void	print_er(const char *s)
 	write(2, "Error: ", 7);
 	write(2, s, len);
 	write(2, "\n", 1);
-	exit(1);
+	return (1);
 }
 
 long	ft_atol(const char *str)
 {
-	unsigned long	res;
+	long	res;
 
 	res = 0;
 	if (*str < 48 || *str > 57)
-		print_er("invalid number");
+		return (-1);
 	while (*str >= 48 && *str <= 57)
 		res = res * 10 + (*str++ - 48);
 	return (res);
 }
 
-short	check_time(t_ph *p, t_time *now)
+long	get_time(t_ph *p)
 {
-	if (((now->tv_sec - p->last_eat->tv_sec) * 1000000)
-		+ (now->tv_usec - p->last_eat->tv_usec) < p->boss->time_death)
-		return (1);
-	return (0);
+	t_time	now;
+
+	gettimeofday(&now, NULL);
+	return ((now.tv_sec - p->boss->start->tv_sec) * 1000
+		+ (now.tv_usec - p->boss->start->tv_usec) / 1000);
+}
+
+long	get_time_eat(t_ph *p)
+{
+	return (get_time(p) - p->last_eat);
 }

@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 15:34:25 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/07 14:28:26 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/08 02:30:31 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,42 +21,38 @@ void	eat(t_ph *p)
 void	sleep_and_think(t_ph *p)
 {
 	talk_sleeping(p);
-	usleep(p->boss->time_sleep);
+	usleep(p->boss->time_sleep * 1000);
 	talk_thinking(p);
 }
 
 void	*check_death(void *ph)
 {
-	t_ph	p;
-	t_time	now;
+	t_ph	*p;
 	int		death;
 
-	p = *(t_ph *) ph;
-	death = p.boss->time_death;
-	while (!p.last_eat->tv_sec)
+	p = (t_ph *) ph;
+	death = p->boss->time_death;
+	while (p->last_eat == 0)
+		if (get_time(p) > death)
+			talk_death(p);
+	while (get_time_eat(p) < death)
 		;
-	gettimeofday(&now, NULL);
-	while (((now.tv_sec - p.last_eat->tv_sec) * 1000000)
-		+ (now.tv_usec - p.last_eat->tv_usec) < death)
-		gettimeofday(&now, NULL);
-	talk_death(&p);
+	talk_death(p);
 	return (NULL);
 }
 
 void	*phil(void *s)
 {
 	t_ph			*p;
-	pthread_t		inside;
 	unsigned short	flag;
 
 	flag = 1;
 	p = (t_ph *) s;
-	printf("hohoho\n");
 	while (1)
 	{
 		if (flag)
 		{
-			pthread_create(&inside, NULL, check_death, (void *)p);
+			pthread_create(&p->c, NULL, check_death, (void *)p);
 			flag = 0;
 		}
 		eat(p);
@@ -77,7 +73,6 @@ void	start_threads(t_bos *boss)
 		if (i == 0)
 			gettimeofday(boss->start, NULL);
 		i++;
-		usleep(5);
 	}
 	i = 0;
 	while (i < boss->num)
