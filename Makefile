@@ -11,7 +11,7 @@ OBJ 	:= $(SRC:$(SRCDIR)/%c=$(OBJDIR)/%o)
 
 RM		:= rm -rf
 CC		:= gcc
-CFLAGS	:= -Wall -Wextra -Werror
+CFLAGS	:= -Wall -Wextra -Werror -MMD
 
 all:			$(NAME)
 
@@ -20,7 +20,7 @@ $(NAME):		$(OBJ)
 	@printf "philo was build ✅\n"
 
 $(OBJDIR)/%.o:	$(SRCDIR)/%.c | $(OBJDIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $? -o $@
 
 $(OBJDIR):
 	@mkdir -p $@

@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:11:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/08 02:48:10 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/09 18:09:08 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ struct s_boss
 	unsigned int	time_sleep;
 	unsigned int	count_eat;
 	t_time			*start;
+	short			sim;
 };
 
 //utils

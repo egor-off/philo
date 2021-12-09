@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:43:13 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/08 14:26:21 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/09 19:37:29 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ int	init_mutex(t_bos *boss)
 	size_t	i;
 
 	i = 0;
-	if (pthread_mutex_init(boss->death, NULL) > 0)
-		return (1);
-	if (pthread_mutex_init(boss->talk, NULL) > 0)
-		return (1);
+	// if (pthread_mutex_init(boss->death, NULL) > 0)
+	// 	return (1);
+	// if (pthread_mutex_init(boss->talk, NULL) > 0)
+	// 	return (1);
+	boss->sim = 1;
 	while (i < boss->num)
 	{
 		if (pthread_mutex_init(&boss->forks[i], NULL) > 0)
@@ -77,12 +78,12 @@ int	mall_struct(t_bos *boss)
 	boss->start = malloc(sizeof(t_time));
 	if (!boss->start)
 		return (1);
-	boss->talk = malloc(sizeof(pthread_mutex_t));
-	if (!boss->talk)
-		return (1);
-	boss->death = malloc(sizeof(pthread_mutex_t));
-	if (!boss->death)
-		return (1);
+	// boss->talk = malloc(sizeof(pthread_mutex_t));
+	// if (!boss->talk)
+	// 	return (1);
+	// boss->death = malloc(sizeof(pthread_mutex_t));
+	// if (!boss->death)
+	// 	return (1);
 	boss->forks = malloc(sizeof(pthread_mutex_t) * boss->num);
 	if (!boss->forks)
 		return (1);

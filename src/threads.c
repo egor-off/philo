@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 15:34:25 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/08 14:31:27 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/09 19:44:02 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	eat(t_ph *p)
 void	sleep_and_think(t_ph *p)
 {
 	talk_sleeping(p);
-	usleep(p->boss->time_sleep * 1000);
 	talk_thinking(p);
 }
 
@@ -73,15 +72,16 @@ void	start_threads(t_bos *boss)
 		if (i == 0)
 			gettimeofday(boss->start, NULL);
 		i += 2;
-		usleep(20);
+		usleep(50);
 	}
+	usleep(50);
 	i = 1;
 	while (i < boss->num)
 	{
 		boss->ph[i].num = i + 1;
 		pthread_create(&boss->ph[i].t, NULL, phil, (void *) &boss->ph[i]);
 		i += 2;
-		usleep(20);
+		usleep(50);
 	}
 	i = 0;
 	while (i < boss->num)
