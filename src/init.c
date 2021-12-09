@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:43:13 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/08 02:53:23 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/08 14:26:21 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,27 @@
 
 void	give_forks(t_bos *boss, pthread_mutex_t **forks, size_t i)
 {
-	// написать функцию, которая раздаст всем вилки и сделает их через одного правшой
+	if (i % 2 == 0)
+	{
+		boss->ph[i].left = *forks + i;
+		if (i + 1 == boss->num)
+			boss->ph[i].right = *forks;
+		else
+			boss->ph[i].right = *forks + i + 1;
+	}
+	else
+	{
+		boss->ph[i].right = *forks + i;
+		if (i + 1 == boss->num)
+			boss->ph[i].left = *forks;
+		else
+			boss->ph[i].left = *forks + i + 1;
+	}
+	// boss->ph[i].left = *forks + i;
+	// if (i + 1 == boss->num)
+	// 	boss->ph[i].right = *forks;
+	// else
+	// 	boss->ph[i].right = *forks + i + 1;
 }
 
 void	init_struct(t_bos *boss)

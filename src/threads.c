@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 15:34:25 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/08 02:30:31 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/08 14:31:27 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	*phil(void *s)
 	{
 		if (flag)
 		{
-			pthread_create(&p->c, NULL, check_death, (void *)p);
+			pthread_create(&p->c, NULL, check_death, (void *) p);
 			flag = 0;
 		}
 		eat(p);
@@ -72,7 +72,16 @@ void	start_threads(t_bos *boss)
 		pthread_create(&boss->ph[i].t, NULL, phil, (void *) &boss->ph[i]);
 		if (i == 0)
 			gettimeofday(boss->start, NULL);
-		i++;
+		i += 2;
+		usleep(20);
+	}
+	i = 1;
+	while (i < boss->num)
+	{
+		boss->ph[i].num = i + 1;
+		pthread_create(&boss->ph[i].t, NULL, phil, (void *) &boss->ph[i]);
+		i += 2;
+		usleep(20);
 	}
 	i = 0;
 	while (i < boss->num)
