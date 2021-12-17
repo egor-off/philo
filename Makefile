@@ -8,6 +8,7 @@ SRC 	:=	main.c init.c utils.c \
 
 SRC 	:= $(addprefix $(SRCDIR)/,$(SRC))
 OBJ 	:= $(SRC:$(SRCDIR)/%c=$(OBJDIR)/%o)
+DEP		:= $(OBJ:.o=.d)
 
 RM		:= rm -rf
 CC		:= gcc

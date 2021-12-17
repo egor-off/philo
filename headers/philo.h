@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:11:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/16 12:52:18 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/17 12:59:47 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ struct s_boss
 	pthread_t		c;
 	pthread_mutex_t	*forks;
 	// pthread_mutex_t	*death;
-	// pthread_mutex_t	*talk;
+	pthread_mutex_t	*talk;
 	pthread_mutex_t	*eat;
 	size_t			num;
 	int				time_death;

@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:38:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/08 02:07:02 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/17 11:37:01 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ long	ft_atol(const char *str)
 		return (-1);
 	while (*str >= 48 && *str <= 57)
 		res = res * 10 + (*str++ - 48);
-	return (res);
+	if (*str == 0)
+		return (res);
+	return (-1);
 }
 
 long	get_time(t_ph *p)
