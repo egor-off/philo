@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:22:53 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/09 18:14:10 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/10 21:27:14 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	talk_forks(t_ph *p)
 {
-	t_time	now;
-
 	pthread_mutex_lock(p->left);
-	gettimeofday(&now, NULL);
+	printf("8888 %d\n", p->boss->sim);
 	if (p->boss->sim)
 		printf("%ld #%zu has taken the fork\n", get_time(p), p->num);
 }
@@ -28,12 +26,14 @@ void	talk_eating(t_ph *p)
 
 	eat = p->boss->time_eat * 1000;
 	pthread_mutex_lock(p->right);
+	printf("mutex %d\n", pthread_mutex_lock(&p->eating));
 	p->last_eat = get_time(p);
 	if (p->boss->sim)
 		printf("%ld #%zu is eating\n", p->last_eat, p->num);
 	usleep(eat);
 	pthread_mutex_unlock(p->right);
 	pthread_mutex_unlock(p->left);
+	pthread_mutex_unlock(&p->eating);
 }
 
 void	talk_sleeping(t_ph *p)
@@ -54,9 +54,5 @@ void	talk_thinking(t_ph *p)
 
 void	talk_death(t_ph *p)
 {
-	if (p->boss->sim)
-	{
-		p->boss->sim = 0;
-		printf("%ld #%zu died\n", get_time(p), p->num);
-	}
+	printf("%ld #%zu died\n", get_time(p), p->num);
 }

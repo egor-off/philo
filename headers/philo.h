@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:11:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/09 18:09:08 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/16 12:52:18 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ struct s_philo
 {
 	size_t			num;
 	pthread_t		t;
-	pthread_t		c;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
+	pthread_mutex_t	*eating;
 	long			last_eat;
 	t_bos			*boss;
 };
@@ -39,9 +39,11 @@ struct s_philo
 struct s_boss
 {
 	t_ph			*ph;
+	pthread_t		c;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*death;
-	pthread_mutex_t	*talk;
+	// pthread_mutex_t	*death;
+	// pthread_mutex_t	*talk;
+	pthread_mutex_t	*eat;
 	size_t			num;
 	int				time_death;
 	unsigned int	time_eat;
