@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:53:14 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/08 02:47:51 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/17 15:41:00 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static int	start_philo(int ac, char **av)
 	if (mall_and_init(&boss))
 		return (1);
 	start_threads(&boss);
+	pthread_create(&boss.c, NULL, check_death, (void *) &boss);
+	pthread_join(boss.c, NULL);
 	return (0);
 }
 

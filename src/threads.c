@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 15:34:25 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/17 13:34:41 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/17 15:40:51 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,7 @@ void	start_threads(t_bos *boss)
 		i += 2;
 		usleep(50);
 	}
-	pthread_create(&boss->c, NULL, check_death, (void *) boss);
 	i = 0;
 	// while (i < boss->num)
 	// 	pthread_join(boss->ph[i++].t, NULL);
-	pthread_join(boss->c, NULL);
 }

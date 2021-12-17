@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:43:13 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/17 13:29:33 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/17 16:09:48 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 void	give_forks(t_bos *boss, pthread_mutex_t **forks, size_t i)
 {
-	// if (i % 2 == 0)
-	// {
-	// 	boss->ph[i].left = *forks + i;
-	// 	if (i + 1 == boss->num)
-	// 		boss->ph[i].right = *forks;
-	// 	else
-	// 		boss->ph[i].right = *forks + i + 1;
-	// }
-	// else
-	// {
-	// 	boss->ph[i].right = *forks + i;
-	// 	if (i + 1 == boss->num)
-	// 		boss->ph[i].left = *forks;
-	// 	else
-	// 		boss->ph[i].left = *forks + i + 1;
-	// }
-	boss->ph[i].left = *forks + i;
-	if (i + 1 == boss->num)
-		boss->ph[i].right = *forks;
+	if (i % 2 == 0)
+	{
+		boss->ph[i].left = *forks + i;
+		if (i + 1 == boss->num)
+			boss->ph[i].right = *forks;
+		else
+			boss->ph[i].right = *forks + i + 1;
+	}
 	else
-		boss->ph[i].right = *forks + i + 1;
+	{
+		boss->ph[i].right = *forks + i;
+		if (i + 1 == boss->num)
+			boss->ph[i].left = *forks;
+		else
+			boss->ph[i].left = *forks + i + 1;
+	}
+	// boss->ph[i].left = *forks + i;
+	// if (i + 1 == boss->num)
+	// 	boss->ph[i].right = *forks;
+	// else
+	// 	boss->ph[i].right = *forks + i + 1;
 }
 
 void	init_struct(t_bos *boss)
@@ -59,8 +59,8 @@ int	init_mutex(t_bos *boss)
 	i = 0;
 	// if (pthread_mutex_init(boss->death, NULL) > 0)
 	// 	return (1);
-	if (pthread_mutex_init(boss->talk, NULL) > 0)
-		return (1);
+	// if (pthread_mutex_init(boss->talk, NULL) > 0)
+	// 	return (1);
 	boss->sim = 1;
 	while (i < boss->num)
 	{
@@ -81,9 +81,9 @@ int	mall_struct(t_bos *boss)
 	boss->start = malloc(sizeof(t_time));
 	if (!boss->start)
 		return (1);
-	boss->talk = malloc(sizeof(pthread_mutex_t));
-	if (!boss->talk)
-		return (1);
+	// boss->talk = malloc(sizeof(pthread_mutex_t));
+	// if (!boss->talk)
+	// 	return (1);
 	// boss->death = malloc(sizeof(pthread_mutex_t));
 	// if (!boss->death)
 	// 	return (1);
