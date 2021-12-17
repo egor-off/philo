@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 15:34:25 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/17 15:40:51 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/17 17:04:54 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	*check_death(void *b)
 		if (i == bs->num)
 			i = 0;
 		pthread_mutex_lock(bs->ph[i].eating);
-		// printf("check_death #%zu %ld %ld\n", i + 1, get_time_eat(bs->ph + i), get_time(bs->ph + i));
-		if (get_time_eat(bs->ph + i) > bs->time_death)
+		// printf("check_death #%zu %hd %ld\n", i + 1, get_time_eat(bs->ph + i), get_time(bs->ph + i));
+		if (get_time_eat(bs->ph + i))
 		{
 			bs->sim = 0;
 			talk_death(bs->ph + i);

@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:11:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/17 15:43:02 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/17 17:03:46 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ long	ft_atol(const char *str);
 int		print_er(const char *s);
 short	check_time(t_ph *p, t_time *now);
 long	get_time(t_ph *p);
-long	get_time_eat(t_ph *p);
+short	get_time_eat(t_ph *p);
 
 //main
 int		mall_and_init(t_bos *boss);

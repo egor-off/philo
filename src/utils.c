@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:38:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/17 11:37:01 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/17 17:04:22 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ long	get_time(t_ph *p)
 		+ (now.tv_usec - p->boss->start->tv_usec) / 1000);
 }
 
-long	get_time_eat(t_ph *p)
+short	get_time_eat(t_ph *p)
 {
-	return (get_time(p) - p->last_eat);
+	return (get_time(p) - p->last_eat > p->boss->time_death);
 }
