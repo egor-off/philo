@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:11:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/17 17:03:46 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/23 16:20:31 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ struct s_philo
 	pthread_t		t;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
-	pthread_mutex_t	*eating;
 	long			last_eat;
 	t_bos			*boss;
+	short			flag;
 };
 
 struct s_boss
@@ -41,9 +41,6 @@ struct s_boss
 	t_ph			*ph;
 	pthread_t		c;
 	pthread_mutex_t	*forks;
-	// pthread_mutex_t	*death;
-	// pthread_mutex_t	*talk;
-	pthread_mutex_t	*eat;
 	size_t			num;
 	int				time_death;
 	unsigned int	time_eat;
@@ -59,18 +56,17 @@ int		print_er(const char *s);
 short	check_time(t_ph *p, t_time *now);
 long	get_time(t_ph *p);
 short	get_time_eat(t_ph *p);
+void	sleeping(unsigned int time, t_ph *p);
 
 //main
 int		mall_and_init(t_bos *boss);
 void	start_threads(t_bos *boss);
+void	destroy(t_bos *b);
 
 //talk
-void	talk_forks(t_ph *p);
-void	talk_eating(t_ph *p);
-void	talk_sleeping(t_ph *p);
-void	talk_thinking(t_ph *p);
+void	routine(t_ph *p);
 void	talk_death(t_ph *p);
 
-void	*check_death(void *b);
+void	check_death(t_bos *bs);
 
 #endif

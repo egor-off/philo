@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:43:13 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/17 16:09:48 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/23 16:20:21 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,11 @@
 
 void	give_forks(t_bos *boss, pthread_mutex_t **forks, size_t i)
 {
-	if (i % 2 == 0)
-	{
-		boss->ph[i].left = *forks + i;
-		if (i + 1 == boss->num)
-			boss->ph[i].right = *forks;
-		else
-			boss->ph[i].right = *forks + i + 1;
-	}
+	boss->ph[i].left = *forks + i;
+	if (i + 1 == boss->num)
+		boss->ph[i].right = *forks;
 	else
-	{
-		boss->ph[i].right = *forks + i;
-		if (i + 1 == boss->num)
-			boss->ph[i].left = *forks;
-		else
-			boss->ph[i].left = *forks + i + 1;
-	}
-	// boss->ph[i].left = *forks + i;
-	// if (i + 1 == boss->num)
-	// 	boss->ph[i].right = *forks;
-	// else
-	// 	boss->ph[i].right = *forks + i + 1;
+		boss->ph[i].right = *forks + i + 1;
 }
 
 void	init_struct(t_bos *boss)
@@ -47,7 +31,7 @@ void	init_struct(t_bos *boss)
 		boss->ph[i].boss = boss;
 		give_forks(boss, &boss->forks, i);
 		boss->ph[i].last_eat = 0;
-		boss->ph[i].eating = boss->eat + i;
+		boss->ph[i].flag = 0;
 		i++;
 	}
 }
@@ -57,16 +41,10 @@ int	init_mutex(t_bos *boss)
 	size_t	i;
 
 	i = 0;
-	// if (pthread_mutex_init(boss->death, NULL) > 0)
-	// 	return (1);
-	// if (pthread_mutex_init(boss->talk, NULL) > 0)
-	// 	return (1);
 	boss->sim = 1;
 	while (i < boss->num)
 	{
 		if (pthread_mutex_init(boss->forks + i, NULL) > 0)
-			return (1);
-		if (pthread_mutex_init(boss->eat + i, NULL) > 0)
 			return (1);
 		i++;
 	}
@@ -80,15 +58,6 @@ int	mall_struct(t_bos *boss)
 		return (1);
 	boss->start = malloc(sizeof(t_time));
 	if (!boss->start)
-		return (1);
-	// boss->talk = malloc(sizeof(pthread_mutex_t));
-	// if (!boss->talk)
-	// 	return (1);
-	// boss->death = malloc(sizeof(pthread_mutex_t));
-	// if (!boss->death)
-	// 	return (1);
-	boss->eat = malloc(sizeof(pthread_mutex_t) * boss->num);
-	if (!boss->eat)
 		return (1);
 	boss->forks = malloc(sizeof(pthread_mutex_t) * boss->num);
 	if (!boss->forks)
