@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:11:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/23 16:20:31 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/28 14:11:58 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ struct s_philo
 struct s_boss
 {
 	t_ph			*ph;
-	pthread_t		c;
 	pthread_mutex_t	*forks;
 	size_t			num;
 	int				time_death;
