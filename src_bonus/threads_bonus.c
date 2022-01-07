@@ -1,58 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitor.c                                          :+:      :+:    :+:   */
+/*   threads_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/21 14:04:14 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/30 19:31:32 by jjoan            ###   ########.fr       */
+/*   Created: 2021/12/01 15:34:25 by jjoan             #+#    #+#             */
+/*   Updated: 2021/12/28 18:49:04 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-void	check_death(t_bos *bs)
+void	*phil(void *s)
 {
-	size_t	i;
-	short	ans;
+	t_ph	*p;
 	size_t	counter;
 
+	p = (t_ph *) s;
 	counter = 0;
-	i = 0;
-	while (bs->sim)
+	while (p->boss->sim)
 	{
-		if (i == bs->num)
+		routine(p);
+		if (p->boss->count_eat)
 		{
-			i = 0;
-			counter = 0;
-		}
-		ans = get_time_eat(bs->ph + i);
-		if (bs->ph[i].flag)
 			counter++;
-		if (ans || counter == bs->num)
-		{
-			bs->sim = 0;
-			if (ans)
-				talk_death(bs->ph + i);
+			if (counter == p->boss->count_eat)
+				p->flag = 1;
 		}
-		i++;
 	}
+	return (NULL);
 }
 
-void	destroy(t_bos *b)
+void	start_threads(t_bos *boss)
 {
 	size_t	i;
 
-	i = b->num - 1;
-	while (i + 1)
+	i = 0;
+	while (i < boss->num)
 	{
-		pthread_detach(b->ph[i].t);
-		pthread_mutex_unlock(b->forks + i);
-		pthread_mutex_destroy(b->forks + i);
-		i--;
+		/* need to change it!!! to fork comp
+		// boss->ph[i].num = i + 1;
+		// pthread_create(&boss->ph[i].t, NULL, phil, (void *) &boss->ph[i]);
+		// if (i == 0)
+		// 	gettimeofday(boss->start, NULL);
+		usleep(100);
+		i++; */
 	}
-	free(b->ph);
-	free(b->forks);
-	free(b->start);
 }

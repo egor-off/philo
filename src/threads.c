@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 15:34:25 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/23 15:01:43 by jjoan            ###   ########.fr       */
+/*   Updated: 2021/12/30 19:34:23 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	start_threads(t_bos *boss)
 		pthread_create(&boss->ph[i].t, NULL, phil, (void *) &boss->ph[i]);
 		if (i == 0)
 			gettimeofday(boss->start, NULL);
-		usleep(100);
+		usleep(10);
 		i++;
 	}
 }
