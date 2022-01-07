@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:53:14 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/30 19:33:50 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/07 17:43:48 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,20 @@ static int	write_info(t_bos *boss, int ac, char **av)
 	return (0);
 }
 
+static void	join(t_bos *b)
+{
+	size_t	i;
+
+	i = 0;
+	if (b->num == 1)
+		return ;
+	while (i < b->num)
+	{
+		pthread_join(b->ph[i].t, NULL);
+		i++;
+	}
+}
+
 static int	start_philo(int ac, char **av)
 {
 	t_bos	boss;
@@ -41,8 +55,8 @@ static int	start_philo(int ac, char **av)
 		return (1);
 	start_threads(&boss);
 	check_death(&boss);
+	join(&boss);
 	destroy(&boss);
-	// while (1) ;
 	return (0);
 }
 

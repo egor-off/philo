@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:11:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/28 14:11:58 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/07 16:53:04 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <stdlib.h>
 
 typedef struct s_philo	t_ph;
-typedef struct s_table	t_tab;
 typedef struct s_boss	t_bos;
 typedef struct timeval	t_time;
 
@@ -34,6 +33,8 @@ struct s_philo
 	long			last_eat;
 	t_bos			*boss;
 	short			flag;
+	pthread_mutex_t	eating;
+	long			need_check;
 };
 
 struct s_boss
@@ -53,7 +54,7 @@ struct s_boss
 long	ft_atol(const char *str);
 int		print_er(const char *s);
 short	check_time(t_ph *p, t_time *now);
-long	get_time(t_ph *p);
+long	get_time(t_bos *b);
 short	get_time_eat(t_ph *p);
 void	sleeping(unsigned int time, t_ph *p);
 

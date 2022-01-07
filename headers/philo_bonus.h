@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:11:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/28 19:00:20 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/07 14:11:54 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <semaphore.h>
 
 typedef struct s_philo	t_ph;
-typedef struct s_table	t_tab;
 typedef struct s_boss	t_bos;
 typedef struct timeval	t_time;
 

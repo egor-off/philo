@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:38:05 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/17 17:04:22 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/07 16:02:45 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,21 @@ long	ft_atol(const char *str)
 	return (-1);
 }
 
-long	get_time(t_ph *p)
+long	get_time(t_bos *b)
 {
 	t_time	now;
 
 	gettimeofday(&now, NULL);
-	return ((now.tv_sec - p->boss->start->tv_sec) * 1000
-		+ (now.tv_usec - p->boss->start->tv_usec) / 1000);
+	return ((now.tv_sec - b->start->tv_sec) * 1000
+		+ (now.tv_usec - b->start->tv_usec) / 1000);
 }
 
 short	get_time_eat(t_ph *p)
 {
-	return (get_time(p) - p->last_eat > p->boss->time_death);
+	long	last_eat;
+
+	pthread_mutex_lock(&p->eating);
+	last_eat = p->last_eat;
+	pthread_mutex_unlock(&p->eating);
+	return (get_time(p->boss) - last_eat > p->boss->time_death);
 }

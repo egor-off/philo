@@ -6,37 +6,45 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 14:04:14 by jjoan             #+#    #+#             */
-/*   Updated: 2021/12/30 19:31:32 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/07 17:42:40 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
+static short	need_check(t_ph *p)
+{
+	if (get_time(p->boss) > p->need_check)
+		return (0);
+	return (1);
+}
+
 void	check_death(t_bos *bs)
 {
 	size_t	i;
-	short	ans;
+	size_t	ans;
 	size_t	counter;
 
-	counter = 0;
-	i = 0;
+	i = -1;
 	while (bs->sim)
 	{
+		i++;
 		if (i == bs->num)
 		{
 			i = 0;
 			counter = 0;
 		}
-		ans = get_time_eat(bs->ph + i);
 		if (bs->ph[i].flag)
 			counter++;
-		if (ans || counter == bs->num)
-		{
+		if (counter == bs->num)
 			bs->sim = 0;
-			if (ans)
-				talk_death(bs->ph + i);
-		}
-		i++;
+		if (need_check(bs->ph + i))
+			continue ;
+		ans = get_time_eat(bs->ph + i);
+		if (ans)
+			bs->sim = 0;
+		if (ans)
+			talk_death(bs->ph + i);
 	}
 }
 
@@ -50,6 +58,8 @@ void	destroy(t_bos *b)
 		pthread_detach(b->ph[i].t);
 		pthread_mutex_unlock(b->forks + i);
 		pthread_mutex_destroy(b->forks + i);
+		pthread_mutex_unlock(&b->ph[i].eating);
+		pthread_mutex_destroy(&b->ph[i].eating);
 		i--;
 	}
 	free(b->ph);

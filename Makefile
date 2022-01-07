@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/01/07 14:14:41 by jjoan             #+#    #+#              #
+#    Updated: 2022/01/07 18:39:05 by jjoan            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME	:= philo
 
 SRCDIR	:= src
@@ -36,7 +48,7 @@ $(OBJDIR):
 
 clean:
 	@$(RM) $(OBJDIR) $(DEPDIR)
-	@printf "obj directory was deleted 🗑\n"
+	@printf "obj and dep directory was deleted 🗑\n"
 
 fclean:
 	@$(RM) $(OBJDIR) $(DEPDIR) $(NAME)
