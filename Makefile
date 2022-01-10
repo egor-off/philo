@@ -6,7 +6,7 @@
 #    By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/07 14:14:41 by jjoan             #+#    #+#              #
-#    Updated: 2022/01/08 23:53:29 by jjoan            ###   ########.fr        #
+#    Updated: 2022/01/10 19:32:31 by jjoan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,9 @@ DEPBDIR	:= dep_bonus
 
 SRC 	:=	main.c init.c utils.c \
 			threads.c talk.c monitor.c
+
+SRCB	:=	main_b.c init_b.c utils_b.c \
+			forks_b.c monitor_b.c
 
 SRC		:= $(addprefix $(SRCDIR)/,$(SRC))
 OBJ		:= $(SRC:$(SRCDIR)/%c=$(OBJDIR)/%o)

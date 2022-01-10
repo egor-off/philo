@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   talk_bonus.c                                       :+:      :+:    :+:   */
+/*   monitor_b.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 16:22:53 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/08 21:56:50 by jjoan            ###   ########.fr       */
+/*   Created: 2021/12/21 14:04:14 by jjoan             #+#    #+#             */
+/*   Updated: 2022/01/10 20:06:08 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo_bonus.h"
 
-// remake for sem and proc
-
-void	talk_death(t_ph *p)
+void	destroy(t_bos *b)
 {
-	printf("%ld #%zu died\n", get_time(p), p->num);
-}
+	size_t	i;
 
-void	sleeping(unsigned int time, t_ph *p)
-{
-	unsigned int	now;
-	unsigned int	res;
-
-	now = get_time(p);
-	res = now + time;
-	while (now < res && p->boss->sim)
+	i = 0;
+	sem_wait(b->sim);
+	while (i < b->num)
 	{
-		usleep(100);
-		now = get_time(p);
+		kill(b->pid[i], SIGKILL);
+		i++;
 	}
+	free(b->pid);
+	free(b->start);
+	free(b);
 }

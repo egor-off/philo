@@ -1,16 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*   main_b.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:53:14 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/08 21:56:12 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/10 20:08:51 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo_bonus.h"
+
+long	ft_atol(const char *str)
+{
+	long	res;
+
+	res = 0;
+	if (*str < 48 || *str > 57)
+		return (-1);
+	while (*str >= 48 && *str <= 57)
+		res = res * 10 + (*str++ - 48);
+	if (*str == 0)
+		return (res);
+	return (-1);
+}
 
 static int	write_info(t_bos *boss, int ac, char **av)
 {
@@ -28,6 +42,7 @@ static int	write_info(t_bos *boss, int ac, char **av)
 		boss->count_eat = 0;
 	if (boss->num || boss->time_death || boss->time_eat || boss->time_sleep)
 		return (1);
+	boss->last_eat = 0;
 	return (0);
 }
 
@@ -42,6 +57,8 @@ static int	start_philo(int ac, char **av)
 		return (print_er("invalid numver"));
 	if (mall_and_init(&boss))
 		return (1);
+	start_forks(boss);
+	destroy(boss);
 	return (0);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_bonus.c                                       :+:      :+:    :+:   */
+/*   init_b.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:43:13 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/08 23:39:05 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/10 17:47:56 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	open_sem(t_bos *boss)
 		return (1);
 	if (boss->count_eat)
 	{
-		sem_unlink(COUNT)
-		boss->counter = sem_open(COUNT, O_CREAT, S_IRWXU, boss->num);
+		sem_unlink(COUNT);
+		boss->counter = sem_open(COUNT, O_CREAT, S_IRWXU, 0);
 		if (boss->counter == SEM_FAILED)
 			return (1);
 	}
