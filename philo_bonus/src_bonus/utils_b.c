@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_b.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:38:05 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/07 16:02:45 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/11 15:00:38 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/philo.h"
+#include "../philo_bonus.h"
 
 static int	ft_strlen(const char *s)
 {
@@ -33,20 +33,6 @@ int	print_er(const char *s)
 	return (1);
 }
 
-long	ft_atol(const char *str)
-{
-	long	res;
-
-	res = 0;
-	if (*str < 48 || *str > 57)
-		return (-1);
-	while (*str >= 48 && *str <= 57)
-		res = res * 10 + (*str++ - 48);
-	if (*str == 0)
-		return (res);
-	return (-1);
-}
-
 long	get_time(t_bos *b)
 {
 	t_time	now;
@@ -56,12 +42,21 @@ long	get_time(t_bos *b)
 		+ (now.tv_usec - b->start->tv_usec) / 1000);
 }
 
-short	get_time_eat(t_ph *p)
+short	get_time_eat(t_bos *b)
 {
-	long	last_eat;
+	return (get_time(b) - b->last_eat > b->time_death);
+}
 
-	pthread_mutex_lock(&p->eating);
-	last_eat = p->last_eat;
-	pthread_mutex_unlock(&p->eating);
-	return (get_time(p->boss) - last_eat > p->boss->time_death);
+void	sleeping(unsigned int time, t_bos *b)
+{
+	unsigned int	now;
+	unsigned int	res;
+
+	now = get_time(b);
+	res = now + time;
+	while (now < res)
+	{
+		usleep(100);
+		now = get_time(b);
+	}
 }

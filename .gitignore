@@ -2,11 +2,11 @@
 *.d
 
 # Exec files
-philo
-philo_bonus
+philo/philo
+philo_bonus/philo_bonus
 
 # Check files
-out*
+*out*
 
 # Object files
 *.o

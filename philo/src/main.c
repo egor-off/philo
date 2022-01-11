@@ -6,11 +6,11 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:53:14 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/07 17:43:48 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/11 19:14:59 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/philo.h"
+#include "../philo.h"
 
 static int	write_info(t_bos *boss, int ac, char **av)
 {
@@ -21,23 +21,22 @@ static int	write_info(t_bos *boss, int ac, char **av)
 	if (ac == 6)
 	{
 		boss->count_eat = ft_atol(av[5]);
-		if (!boss->count_eat)
-			return (1);
+		if (boss->count_eat == -1)
+			return (0);
 	}
 	else
-		boss->count_eat = 0;
-	if (boss->num || boss->time_death || boss->time_eat || boss->time_sleep)
-		return (1);
-	return (0);
+		boss->count_eat = -1;
+	if (boss->num < 0 || boss->time_death < 0 || boss->time_eat < 0
+		|| boss->time_sleep < 0)
+		return (0);
+	return (1);
 }
 
-static void	join(t_bos *b)
+void	join(t_bos *b)
 {
 	size_t	i;
 
 	i = 0;
-	if (b->num == 1)
-		return ;
 	while (i < b->num)
 	{
 		pthread_join(b->ph[i].t, NULL);
@@ -51,6 +50,10 @@ static int	start_philo(int ac, char **av)
 
 	if (!write_info(&boss, ac, av))
 		return (print_er("invalid numver"));
+	if (boss.count_eat == 0 || boss.num == 0)
+		return (0);
+	if (boss.num > 200)
+		return (print_er("dont do it, plz"));
 	if (mall_and_init(&boss))
 		return (1);
 	start_threads(&boss);

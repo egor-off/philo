@@ -6,11 +6,11 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:43:13 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/07 16:20:37 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/11 18:05:13 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/philo.h"
+#include "../philo.h"
 
 void	give_forks(t_bos *boss, pthread_mutex_t **forks, size_t i)
 {
@@ -28,6 +28,7 @@ int	init_struct(t_bos *boss)
 	i = 0;
 	while (i < boss->num)
 	{
+		boss->ph[i].num = i + 1;
 		boss->ph[i].boss = boss;
 		give_forks(boss, &boss->forks, i);
 		boss->ph[i].last_eat = 0;

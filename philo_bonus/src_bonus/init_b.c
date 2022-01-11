@@ -6,11 +6,11 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:43:13 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/10 17:47:56 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/11 16:39:28 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/philo_bonus.h"
+#include "../philo_bonus.h"
 
 int	open_sem(t_bos *boss)
 {
@@ -47,4 +47,20 @@ int	mall_and_init(t_bos *boss)
 	if (open_sem(boss))
 		return (print_er("cannot init semaphores"));
 	return (0);
+}
+
+void	destroy(t_bos *b)
+{
+	size_t	i;
+
+	i = 0;
+	sem_wait(b->sim);
+	while (i < b->num)
+	{
+		kill(b->pid[i], SIGKILL);
+		i++;
+	}
+	free(b->pid);
+	free(b->start);
+	free(b);
 }

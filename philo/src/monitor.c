@@ -6,11 +6,11 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 14:04:14 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/07 17:42:40 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/11 18:38:10 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/philo.h"
+#include "../philo.h"
 
 static short	need_check(t_ph *p)
 {
@@ -22,10 +22,10 @@ static short	need_check(t_ph *p)
 void	check_death(t_bos *bs)
 {
 	size_t	i;
-	size_t	ans;
 	size_t	counter;
 
 	i = -1;
+	counter = 0;
 	while (bs->sim)
 	{
 		i++;
@@ -40,10 +40,9 @@ void	check_death(t_bos *bs)
 			bs->sim = 0;
 		if (need_check(bs->ph + i))
 			continue ;
-		ans = get_time_eat(bs->ph + i);
-		if (ans)
+		if (get_time_eat(bs->ph + i))
 			bs->sim = 0;
-		if (ans)
+		if (get_time_eat(bs->ph + i))
 			talk_death(bs->ph + i);
 	}
 }
@@ -55,7 +54,6 @@ void	destroy(t_bos *b)
 	i = b->num - 1;
 	while (i + 1)
 	{
-		pthread_detach(b->ph[i].t);
 		pthread_mutex_unlock(b->forks + i);
 		pthread_mutex_destroy(b->forks + i);
 		pthread_mutex_unlock(&b->ph[i].eating);

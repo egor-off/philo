@@ -6,13 +6,13 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:22:53 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/07 18:37:12 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/11 17:50:36 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/philo.h"
+#include "../philo.h"
 
-void	routine(t_ph *p)
+void	routine1(t_ph *p)
 {
 	pthread_mutex_lock(p->left);
 	if (p->boss->sim)
@@ -25,6 +25,10 @@ void	routine(t_ph *p)
 		printf("%10ld #%zu is eating\n", p->last_eat, p->num);
 	sleeping(p->boss->time_eat, p);
 	p->need_check = p->last_eat + p->boss->time_death;
+}
+
+void	routine2(t_ph *p)
+{
 	pthread_mutex_unlock(p->right);
 	pthread_mutex_unlock(p->left);
 	if (p->boss->sim)

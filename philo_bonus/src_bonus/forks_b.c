@@ -6,11 +6,11 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 15:34:25 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/10 19:25:56 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/11 18:40:08 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/philo_bonus.h"
+#include "../philo_bonus.h"
 
 void	*checker(void *boss)
 {
@@ -31,8 +31,8 @@ void	*checker(void *boss)
 			if (get_time(b) > need_check)
 			{
 				sem_wait(b->talk);
-				sem_post(b->sim);
 				printf("%10ld #%d is dead\n", get_time(b), b->id);
+				sem_post(b->sim);
 				break ;
 			}
 		}
@@ -40,7 +40,7 @@ void	*checker(void *boss)
 	return (NULL);
 }
 
-void	routine(t_bos *b)
+void	routine1(t_bos *b)
 {
 	sem_wait(b->forks);
 	sem_wait(b->talk);
@@ -54,6 +54,10 @@ void	routine(t_bos *b)
 	sleeping(b->time_eat, b);
 	sem_post(b->forks);
 	sem_post(b->forks);
+}
+
+void	routine2(t_bos *b)
+{
 	sem_wait(b->talk);
 	printf("%10ld #%d is sleeping\n", get_time(b), b->id);
 	sem_post(b->talk);
@@ -65,23 +69,22 @@ void	routine(t_bos *b)
 
 void	start_proc(t_bos *b)
 {
-	size_t		counter;
+	int			counter;
 	pthread_t	t;
 
 	counter = 0;
-	if (b->id % 2 == 0)
-		sleeping(b->time_eat, b);
 	pthread_create(&t, NULL, checker, (void *) b);
 	pthread_detach(t);
 	while (1)
 	{
-		routine(b);
-		if (b->count_eat)
+		routine1(b);
+		if (b->count_eat > 0)
 		{
 			counter++;
 			if (counter == b->count_eat)
 				sem_post(b->counter);
 		}
+		routine2(b);
 	}
 }
 
@@ -92,7 +95,7 @@ void	*count_check(void *boss)
 
 	counter = 0;
 	b = (t_bos *) boss;
-	while (counter < b->count_eat)
+	while (counter < b->num)
 	{
 		sem_wait(b->counter);
 		counter++;
@@ -103,26 +106,4 @@ void	*count_check(void *boss)
 		}
 	}
 	return (NULL);
-}
-
-void	start_forks(t_bos *boss)
-{
-	size_t		i;
-	pid_t		pid;
-	pthread_t	t;
-
-	i = 0;
-	while (i < boss->num)
-	{
-		if (i == 0)
-			gettimeofday(boss->start, NULL);
-		boss->id = i + 1;
-		pid = fork();
-		if (pid == 0)
-			start_proc(boss);
-		boss->pid[i] = pid;
-		i++;
-	}
-	pthread_create(&t, NULL, count_check, (void *) boss);
-	pthread_detach(t);
 }

@@ -6,16 +6,16 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 15:34:25 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/07 18:36:19 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/11 18:05:10 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/philo.h"
+#include "../philo.h"
 
 void	*phil(void *s)
 {
 	t_ph	*p;
-	size_t	counter;
+	int		counter;
 
 	p = (t_ph *) s;
 	counter = 0;
@@ -23,13 +23,14 @@ void	*phil(void *s)
 		sleeping(p->boss->time_eat, p);
 	while (p->boss->sim)
 	{
-		routine(p);
-		if (p->boss->count_eat)
+		routine1(p);
+		if (p->boss->count_eat > 0)
 		{
 			counter++;
 			if (counter >= p->boss->count_eat)
 				p->flag = 1;
 		}
+		routine2(p);
 		if (!p->boss->sim)
 			return (NULL);
 	}
@@ -45,8 +46,8 @@ void	start_threads(t_bos *boss)
 	{
 		if (i == 0)
 			gettimeofday(boss->start, NULL);
-		boss->ph[i].num = i + 1;
 		pthread_create(&boss->ph[i].t, NULL, phil, (void *) &boss->ph[i]);
+		pthread_detach(boss->ph[i].t);
 		i++;
 	}
 }
