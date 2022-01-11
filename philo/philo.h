@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:11:05 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/11 17:51:05 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/11 20:17:30 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	destroy(t_bos *b);
 void	routine1(t_ph *p);
 void	routine2(t_ph *p);
 void	talk_death(t_ph *p);
-
 void	check_death(t_bos *bs);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 14:04:14 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/11 18:38:10 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/11 20:15:48 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ static short	need_check(t_ph *p)
 	if (get_time(p->boss) > p->need_check)
 		return (0);
 	return (1);
+}
+
+static void	null_to_num(size_t *i, size_t *counter)
+{
+	*i = 0;
+	*counter = 0;
 }
 
 void	check_death(t_bos *bs)
@@ -30,10 +36,7 @@ void	check_death(t_bos *bs)
 	{
 		i++;
 		if (i == bs->num)
-		{
-			i = 0;
-			counter = 0;
-		}
+			null_to_num(&i, &counter);
 		if (bs->ph[i].flag)
 			counter++;
 		if (counter == bs->num)
@@ -41,9 +44,11 @@ void	check_death(t_bos *bs)
 		if (need_check(bs->ph + i))
 			continue ;
 		if (get_time_eat(bs->ph + i))
+		{
 			bs->sim = 0;
-		if (get_time_eat(bs->ph + i))
 			talk_death(bs->ph + i);
+			return ;
+		}
 	}
 }
 

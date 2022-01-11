@@ -6,7 +6,7 @@
 #    By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/07 14:14:41 by jjoan             #+#    #+#              #
-#    Updated: 2022/01/11 18:31:34 by jjoan            ###   ########.fr        #
+#    Updated: 2022/01/11 20:16:31 by jjoan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ clean:
 	@printf "obj and dep directory was deleted 🗑\n"
 
 fclean:
-	@$(RM) $(OBJBDIR) $(DEPBDIR) $(NAMEB)
+	@$(RM) $(OBJBDIR) $(DEPBDIR) $(NAMEB) philo_bonus.dSYM
 	@printf "all was deleted 🗑\n"
 
 re:				fclean $(NAMEB)

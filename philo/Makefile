@@ -6,7 +6,7 @@
 #    By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/07 14:14:41 by jjoan             #+#    #+#              #
-#    Updated: 2022/01/11 18:31:27 by jjoan            ###   ########.fr        #
+#    Updated: 2022/01/11 20:18:22 by jjoan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ OBJ		:= $(SRC:$(SRCDIR)/%c=$(OBJDIR)/%o)
 DEP		:= $(SRC:$(SRCDIR)/%c=$(DEPDIR)/%d)
 
 RM		:= rm -rf
-CC		:= gcc -g
+CC		:= gcc
 CFLAGS	:= -Wall -Wextra -Werror
 DFLAGS	:= -MMD
 
@@ -51,7 +51,7 @@ clean:
 	@printf "obj and dep directory was deleted 🗑\n"
 
 fclean:
-	@$(RM) $(OBJDIR) $(DEPDIR) $(NAME)
+	@$(RM) $(OBJDIR) $(DEPDIR) $(NAME) philo.dSYM
 	@printf "all was deleted 🗑\n"
 
 re:				fclean $(NAME)

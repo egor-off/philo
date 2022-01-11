@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 15:34:25 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/11 18:40:08 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/11 20:35:08 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	start_proc(t_bos *b)
 	pthread_t	t;
 
 	counter = 0;
+	if (b->num % 2 == 0)
+		sleeping(b->time_eat, b);
 	pthread_create(&t, NULL, checker, (void *) b);
 	pthread_detach(t);
 	while (1)
