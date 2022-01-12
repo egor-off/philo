@@ -6,7 +6,7 @@
 /*   By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:53:14 by jjoan             #+#    #+#             */
-/*   Updated: 2022/01/11 19:14:59 by jjoan            ###   ########.fr       */
+/*   Updated: 2022/01/12 18:09:49 by jjoan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,15 @@ void	join(t_bos *b)
 	size_t	i;
 
 	i = 0;
-	while (i < b->num)
+	if (b->num == 1)
+		pthread_detach(b->ph[0].t);
+	else
 	{
-		pthread_join(b->ph[i].t, NULL);
-		i++;
+		while (i < b->num)
+		{
+			pthread_join(b->ph[i].t, NULL);
+			i++;
+		}
 	}
 }
 

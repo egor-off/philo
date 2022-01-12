@@ -6,11 +6,12 @@
 #    By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/07 14:14:41 by jjoan             #+#    #+#              #
-#    Updated: 2022/01/11 20:16:31 by jjoan            ###   ########.fr        #
+#    Updated: 2022/01/12 19:13:25 by jjoan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAMEB	:= philo_bonus
+HEADER	:= philo_bonus.H
 
 SRCBDIR	:= src_bonus
 OBJBDIR	:= obj_bonus
@@ -37,7 +38,7 @@ $(NAMEB):		$(DEPB) | $(OBJB) Makefile
 $(OBJBDIR)/%.o:	$(SRCBDIR)/%.c | $(OBJBDIR)
 	@$(CC) $(CFLAGS) -c $? -o $@
 
-$(DEPBDIR)/%.d:	$(SRCBDIR)/%.c | $(DEPBDIR)
+$(DEPBDIR)/%.d:	$(HEADER) $(SRCBDIR)/%.c | $(DEPBDIR)
 	@$(CC) $(DFLAGS) -c $? -o $@
 
 $(DEPBDIR):
@@ -55,5 +56,7 @@ fclean:
 	@printf "all was deleted 🗑\n"
 
 re:				fclean $(NAMEB)
+
+-include:		$(DEP)
 
 .PHONY: all clean fclean re $(NAMEB)

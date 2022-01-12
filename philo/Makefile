@@ -6,11 +6,12 @@
 #    By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/07 14:14:41 by jjoan             #+#    #+#              #
-#    Updated: 2022/01/11 20:18:22 by jjoan            ###   ########.fr        #
+#    Updated: 2022/01/12 19:39:00 by jjoan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= philo
+HEADER	:= philo.h
 
 SRCDIR	:= src
 OBJDIR	:= obj
@@ -30,15 +31,15 @@ DFLAGS	:= -MMD
 
 all:			$(NAME)
 
-$(NAME):		$(DEP) | $(OBJ) Makefile
-	@$(CC) $^ -o $(NAME)
+$(NAME):		$(OBJ) | $(DEP) Makefile
+	$(CC) $? -o $(NAME)
 	@printf "philo was built ✅\n"
 
 $(OBJDIR)/%.o:	$(SRCDIR)/%.c | $(OBJDIR)
-	@$(CC) $(CFLAGS) -c $? -o $@
+	$(CC) $(CFLAGS) -c $? -o $@
 
 $(DEPDIR)/%.d:	$(SRCDIR)/%.c | $(DEPDIR)
-	@$(CC) $(DFLAGS) -c $? -o $@
+	$(CC) $(DFLAGS) -c $? -o $@
 
 $(DEPDIR):
 	@mkdir -p $@
@@ -55,5 +56,7 @@ fclean:
 	@printf "all was deleted 🗑\n"
 
 re:				fclean $(NAME)
+
+-include:		$(DEP)
 
 .PHONY: all clean fclean re $(NAME)
