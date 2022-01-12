@@ -6,7 +6,7 @@
 #    By: jjoan <jjoan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/07 14:14:41 by jjoan             #+#    #+#              #
-#    Updated: 2022/01/12 19:13:25 by jjoan            ###   ########.fr        #
+#    Updated: 2022/01/12 19:44:40 by jjoan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ $(NAMEB):		$(DEPB) | $(OBJB) Makefile
 $(OBJBDIR)/%.o:	$(SRCBDIR)/%.c | $(OBJBDIR)
 	@$(CC) $(CFLAGS) -c $? -o $@
 
-$(DEPBDIR)/%.d:	$(HEADER) $(SRCBDIR)/%.c | $(DEPBDIR)
+$(DEPBDIR)/%.d:	$(SRCBDIR)/%.c | $(DEPBDIR)
 	@$(CC) $(DFLAGS) -c $? -o $@
 
 $(DEPBDIR):
